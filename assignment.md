@@ -14,14 +14,103 @@ Documentation: Along with each link, write a brief description of what the code 
 
 ## Prose Blurbs for Exploration
 - Code that specifies when an alarm clock should start making audible sounds.
+https://github.com/yuriykulikov/AlarmClock <- Link to repository
+https://github.com/yuriykulikov/AlarmClock/blob/develop/app/src/androidTest/java/com/better/alarm/test/InfoFragmentTest.kt <- Link to specific location
+@Test
+  fun prealarmOn3Days() {
+    val now = Calendar.getInstance().timeInMillis
+    assertThat(
+            computeTexts(
+                res = InstrumentationRegistry.getInstrumentation().targetContext.resources,
+                alarm =
+                    create(
+                        Calendar.getInstance().apply {
+                          timeInMillis = now
+                          add(Calendar.DAY_OF_YEAR, 3)
+                        },
+                        true,
+                    ),
+                now = now,
+                prealarmDuration = 30,
+            ))
+        .isEqualTo("3 days\n30 minutes pre-alarm")
+  }
+  This code tells the alarm to go off in three days. This alarm is will play a prealarm milder sound for 30 minutes in order to gradually wake up the android user it was designed to serve. This code test is on lines 50-68 in the InfoFragmentTest.kt file.
+
 - Code for a rocket targeting system.
+https://github.com/Matt4tech/Parachute-Project <- Link to repository
+https://github.com/Matt4tech/Parachute-Project/blob/master/MasterDevice <- Link to code location
+void loop() {
+  Serial.println("Start of loop");
+  //GPS
+  if(canGetGPSData()){
+    latitude = getLat();
+    longitude = getLong();
+    gpsUpdated = true;
+  }else{
+    gpsUpdated = false;
+  }
+This code is constantly running in the rocket. It is constantly recieving and sending signals out to the computers running it. This code says that if the rocket can recieve GPS data from the satellites, then it will update its latitude and longitude data and send it directly to the computers running it. This code is on lines 71-80 in the MasterDevice file.
+
 - File compression utility algorithm.
+https://github.com/flto/linux/tree/a3a80255d58d0f0d304ba877ae0313a264973a70 <- Link to repository
+https://github.com/flto/linux/blob/a3a80255d58d0f0d304ba877ae0313a264973a70/Makefile#L935 <- Link to the code location.
+mod_compress_cmd = true
+ifdef CONFIG_MODULE_COMPRESS
+  ifdef CONFIG_MODULE_COMPRESS_GZIP
+    mod_compress_cmd = gzip -n -f
+  endif # CONFIG_MODULE_COMPRESS_GZIP
+  ifdef CONFIG_MODULE_COMPRESS_XZ
+    mod_compress_cmd = xz -f
+  endif # CONFIG_MODULE_COMPRESS_XZ
+endif # CONFIG_MODULE_COMPRESS
+export mod_compress_cmd
+
+# Select initial ramdisk compression format, default is gzip(1).
+# This shall be used by the dracut(8) tool while creating an initramfs image.
+#
+INITRD_COMPRESS-y                  := gzip
+INITRD_COMPRESS-$(CONFIG_RD_BZIP2) := bzip2
+INITRD_COMPRESS-$(CONFIG_RD_LZMA)  := lzma
+INITRD_COMPRESS-$(CONFIG_RD_XZ)    := xz
+INITRD_COMPRESS-$(CONFIG_RD_LZO)   := lzo
+INITRD_COMPRESS-$(CONFIG_RD_LZ4)   := lz4
+# do not export INITRD_COMPRESS, since we didn't actually
+# choose a sane default compression above.
+# export INITRD_COMPRESS := $(INITRD_COMPRESS-y)
+
+ifdef CONFIG_MODULE_SIG_ALL
+$(eval $(call config_filename,MODULE_SIG_KEY))
+
+mod_sign_cmd = scripts/sign-file $(CONFIG_MODULE_SIG_HASH) $(MODULE_SIG_KEY_SRCPREFIX)$(CONFIG_MODULE_SIG_KEY) certs/signing_key.x509
+else
+mod_sign_cmd = true
+endif
+export mod_sign_cmd
+
+ifdef CONFIG_STACK_VALIDATION
+  has_libelf := $(call try-run,\
+		echo "int main() {}" | $(HOSTCC) -xc -o /dev/null -lelf -,1,0)
+  ifeq ($(has_libelf),1)
+    objtool_target := tools/objtool FORCE
+  else
+    SKIP_STACK_VALIDATION := 1
+    export SKIP_STACK_VALIDATION
+
+This code is on lines 914-954 in the file Makefile. It compresses a file if the mod_compress command is entered. If it equals true then it is entered and the code starts runnning to compress the file into different file types. This code is used in the Linux operating system which is a system that many computer users use similar to Windows or IOS.
+ 
 - Weather forecasting algorithm.
+
 - E-commerce checkout system process.
+
 - Social media post scheduler.
+
 - Fitness app calorie counter.
+
 - Online voting system mechanics.
+
 - Automated email response system.
+
 
 ## Submission Format
 
